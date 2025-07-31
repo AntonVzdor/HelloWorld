@@ -2,9 +2,9 @@ public class Variable {
     public static void main(String[] args) {
         /*int moneyJon = 100;
         int moneyNick = moneyJon*5;
-        int sum = moneyJon + moneyNick;*/
+        int sum = moneyJon + moneyNick;
 
-        /*int day = 10000;
+        int day = 10000;
         int years = day/365;
         int months = day/30;
 
