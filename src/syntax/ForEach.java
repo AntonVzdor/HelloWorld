@@ -1,4 +1,4 @@
-import java.util.Arrays;
+package syntax;
 
 public class ForEach {
     public static void main(String[] args) {

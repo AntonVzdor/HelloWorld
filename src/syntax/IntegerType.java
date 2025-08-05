@@ -1,3 +1,5 @@
+package syntax;
+
 public class IntegerType {
     public static void main(String[] args) {
         byte b = 10;
