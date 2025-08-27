@@ -2,42 +2,45 @@ package OOP;
 
 public class Box {
     public static void main(String[] args) {
-        BoxParam boxParam = new BoxParam();
+        BoxParam boxParam = new BoxParam(80);
         BoxParam boxParam1 = boxParam.myCopy();
         BoxParam boxParam2 = boxParam.increase();
 
-        System.out.printf("%s %s %s\n", boxParam.length, boxParam.width, boxParam.height);
-        System.out.printf("%s %s %s\n", boxParam1.length, boxParam1.width, boxParam1.height);
-        System.out.printf("%s %s %s", boxParam2.length, boxParam2.width, boxParam2.height);
-
+        boxParam.showInfo();
+        boxParam1.showInfo();
+        boxParam2.showInfo();
     }
 }
 
 class BoxParam{
-    double length;
-    double width;
-    double height;
+    private double length;
+    private double width;
+    private double height;
 
 
-    BoxParam(double length, double width, double height){
+    public BoxParam(double length, double width, double height){
         this.length = length;
         this.width = width;
         this.height = height;
     }
 
-    BoxParam(double size){
+    public BoxParam(double size){
         this(size, size, size);
     }
 
-    BoxParam(){
-        this(5);
+     public BoxParam(){
+        this(10);
     }
 
-     BoxParam myCopy() {
-        return new BoxParam(this.length, this.width, this.length);
+    public void showInfo(){
+        System.out.printf("%s %s %s\n", this.length, this.width, this.height);
     }
 
-    BoxParam increase(){
-        return new BoxParam(this.length * 2, this.width * 2, this.length * 2);
+     public BoxParam myCopy() {
+        return new BoxParam(this.length, this.width, this.height);
+    }
+
+    public BoxParam increase(){
+        return new BoxParam(this.length * 2, this.width * 2, this.height * 2);
     }
 }
