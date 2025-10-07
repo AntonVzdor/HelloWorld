@@ -11,7 +11,7 @@ public class NewMassProject {
 
         String input = scanner.nextLine();
         BankAccount bankAccount = new BankAccount(name, balance);
-
+//111
         switch (input) {
             case "Баланс":
                 bankAccount.showInfo();
