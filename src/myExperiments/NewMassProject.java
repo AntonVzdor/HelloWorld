@@ -8,26 +8,35 @@ public class NewMassProject {
         Scanner scanner = new Scanner(System.in);
         String name = "Georg";
         double balance = 5000.0;
-
-        String input = scanner.nextLine();
         BankAccount bankAccount = new BankAccount(name, balance);
-//111
-        switch (input) {
-            case "Баланс":
-                bankAccount.showInfo();
-                break;
-            case "Снять деньги":
-                System.out.println("Сколько снять?");
-                int num = scanner.nextInt();
-                bankAccount.withdraw(num);
-                break;
-            case "Положить деньги":
-                System.out.println("Сколько положить?");
-                int num2 = scanner.nextInt();
-                bankAccount.deposit(num2);
-                break;
-            default:
-                break;
+
+        while (true){
+            System.out.println(
+                    "Выбирете команду\n1 - Баланс\n2 - Снять деньги\n3 - Пополнить счет\n4 - Выход"
+            );
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1":
+                    bankAccount.showInfo();
+                    break;
+                case "2":
+                    System.out.println("Сколько снять?");
+                    int num = scanner.nextInt();
+                    scanner.nextLine();
+                    bankAccount.withdraw(num);
+                    break;
+                case "3":
+                    System.out.println("Сколько положить?");
+                    int num2 = scanner.nextInt();
+                    scanner.nextLine();
+                    bankAccount.deposit(num2);
+                    break;
+                case "4":
+                    System.out.println("До новых встреч!");
+                    return;
+                default:
+                    System.out.println("Неверная команда, попробуйте снова.");
+            }
         }
     }
 }
