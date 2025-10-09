@@ -2,7 +2,7 @@ package OOP;
 
 import java.util.Scanner;
 
-public class Rectangle {
+public class Rectangles {
     public static void main(String[] args) {
         RectangleParam rectangle = new RectangleParam();
 
