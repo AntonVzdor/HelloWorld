@@ -1,4 +1,4 @@
-package javaLevel2;
+package JavaAdvancedLevel;
 
 public class Exceptions {
     public static void main(String[] args) {
