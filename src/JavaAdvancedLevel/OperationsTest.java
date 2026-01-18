@@ -1,11 +1,18 @@
 package JavaAdvancedLevel;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OperationsTest {
 
+    Operations oper;
+
+    @BeforeEach
+    public void setUp() {
+        oper = new Operations();
+    }
 
     @Test
     void addition() {
@@ -37,5 +44,10 @@ class OperationsTest {
         int expected  = 2;
         int result = oper.division(10, 5);
         assertEquals(expected , result);
+    }
+
+    @AfterEach
+    public void close() {
+        oper = null;
     }
 }
