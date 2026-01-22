@@ -28,7 +28,10 @@ public class Library {
 }
 
 interface Book {
-    String getName();
-    String getAuthor();
-    int gerNumberOfBooks();
+    Library get(int numberOfBooks);
+    void add(Library library);
+    boolean remove(Library library);
+    boolean removeAt(int index);
+    int size();
+    void  clear();
 }
