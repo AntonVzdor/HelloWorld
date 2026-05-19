@@ -9,11 +9,35 @@ public class MainClassRemember {
                 false
         );
 
-        System.out.println(task1);
+        Task task2 = new Task(
+                2,
+                "поспать",
+                "раздеться, лечь в кровать, закрыть глаза",
+                false
+        );
 
-        task1.markCompleted();
+        Task task3 = new Task(
+                3,
+                "поспать",
+                "раздеться, лечь в кровать, закрыть глаза",
+                false
+        );
 
-        System.out.println(task1);
+        TaskManager taskManager = new TaskManager();
+        taskManager.addTask(task1);
+        taskManager.addTask(task2);
+        taskManager.addTask(task3);
+
+        task2.markCompleted();
+
+        taskManager.viewAllTasks();
+
+        taskManager.removeTask(3);
+
+        taskManager.viewTask(2);
+        taskManager.viewTask(3);
+
+        taskManager.viewAllTasks();
     }
 }
 
