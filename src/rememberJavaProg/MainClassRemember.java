@@ -6,21 +6,24 @@ public class MainClassRemember {
                 1,
                 "поспать",
                 "раздеться, лечь в кровать, закрыть глаза",
-                false
+                false,
+                Priority.HIGH
         );
 
         Task task2 = new Task(
                 2,
-                "поспать",
+                "радость",
                 "раздеться, лечь в кровать, закрыть глаза",
-                false
+                false,
+                Priority.MEDIUM
         );
 
         Task task3 = new Task(
                 3,
-                "поспать",
+                "код",
                 "раздеться, лечь в кровать, закрыть глаза",
-                false
+                false,
+                Priority.LOW
         );
 
         TaskManager taskManager = new TaskManager();
@@ -28,14 +31,18 @@ public class MainClassRemember {
         taskManager.addTask(task2);
         taskManager.addTask(task3);
 
-        task2.markCompleted();
-
         taskManager.viewAllTasks();
 
-        taskManager.removeTask(3);
+        task2.markCompleted();
+        taskManager.sortId();
+        taskManager.sortTitle();
+        taskManager.sortPriority();
 
-        taskManager.viewTask(2);
-        taskManager.viewTask(3);
+        taskManager.viewCompletedTask();
+        taskManager.viewTaskToName("поспать");
+        taskManager.viewTaskToName("спать");
+        taskManager.viewNotCompletedTask();
+        taskManager.viewPriorityTask(Priority.LOW);
 
         taskManager.viewAllTasks();
     }
@@ -46,17 +53,20 @@ class Task{
     private String title;
     private String description;
     private boolean completed;
+    private Priority priority;
 
     public Task(
             int id,
             String title,
             String description,
-            boolean completed
+            boolean completed,
+            Priority priority
     ){
         this.id = id;
         this.title = title;
         this.description = description;
         this.completed = completed;
+        this.priority = priority;
     }
 
     public int getId() {
@@ -74,6 +84,8 @@ class Task{
     public boolean getCompleted() {
         return completed;
     }
+
+    public Priority getPriority(){return priority;}
 
     public void setId(int newId) {
         this.id = newId;
@@ -96,7 +108,7 @@ class Task{
                 "№ задачи = " + id +
                 ", название = '" + title + '\'' +
                 ", описание = '" + description + '\'' +
-                ", статус = " + completed +
+                ", статус = " + completed + ", " + priority +
                 '}';
     }
 
