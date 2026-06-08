@@ -1,5 +1,5 @@
 package CollectionsFramework;
-
+//сука//сука
 import java.util.Arrays;
 
 public record CarArray(String brand, int number) {
