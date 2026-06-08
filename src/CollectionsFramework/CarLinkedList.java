@@ -1,5 +1,5 @@
 package CollectionsFramework;
-
+//сука
 public class CarLinkedList implements CarList {
     private Node first;
     private Node last;
