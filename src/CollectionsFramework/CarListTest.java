@@ -11,7 +11,7 @@ public class CarListTest {
 
     @Before
     public void setUp() {
-        carList = new CarArrayList();
+        carList = new CarLinkedList();
         for (int i = 0; i < 100; i++) {
             carList.add(new CarArray("Brand" + i, i));
         }
@@ -78,16 +78,16 @@ public class CarListTest {
     @Test
     public void insertAfterStartElement() {
         CarArray car = new CarArray("Toyota", 15);
-        carList.add(car, 0);
-        CarArray car2 = carList.get(0);
+        carList.add(car, 1);
+        CarArray car2 = carList.get(1);
         assertEquals("Toyota", car2.brand());
     }
 
     @Test
     public void insertAfterEndElement() {
         CarArray car = new CarArray("Toyota", 15);
-        carList.add(car, 99);
-        CarArray car2 = carList.get(99);
+        carList.add(car, 98);
+        CarArray car2 = carList.get(98);
         assertEquals("Toyota", car2.brand());
     }
 }
