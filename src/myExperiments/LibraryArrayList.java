@@ -15,12 +15,20 @@ public class LibraryArrayList implements LibraryList {
 
     @Override
     public void add(Library library) {
-        if (size >= libAryArrayList.length){
-            libAryArrayList = Arrays.copyOf(libAryArrayList , libAryArrayList.length * 2);
-        }
+        checkSize();
         libAryArrayList[size] = library;
         size++;
+    }
 
+    @Override
+    public void add(int index, Library library) {
+        checkSize();
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        System.arraycopy(libAryArrayList, index, libAryArrayList, index + 1, size - index);
+        libAryArrayList[index] = library;
+        size++;
     }
 
     @Override
@@ -36,9 +44,7 @@ public class LibraryArrayList implements LibraryList {
     @Override
     public boolean removeAt(int index) {
         checkIndex(index);
-        for (int i = 0; i < size; i++) {
-            libAryArrayList[i] = libAryArrayList[i + 1];
-        }
+        System.arraycopy(libAryArrayList, index + 1, libAryArrayList, index, size- 1 - index);
         size--;
         return true;
     }
@@ -57,6 +63,12 @@ public class LibraryArrayList implements LibraryList {
     private void checkIndex(int index){
         if (index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
+        }
+    }
+
+    private  void checkSize(){
+        if (size >= libAryArrayList.length){
+            libAryArrayList = Arrays.copyOf(libAryArrayList , libAryArrayList.length * 2);
         }
     }
 }

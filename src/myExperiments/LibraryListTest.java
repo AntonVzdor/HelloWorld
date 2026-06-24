@@ -10,7 +10,7 @@ class LibraryListTest {
     private LibraryList libList;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         libList = new LibraryArrayList();
         for (int i = 0; i < 100; i++) {
             libList.add(new Library(i, "Book " + i, "Author" + i));
@@ -38,6 +38,30 @@ class LibraryListTest {
     }
 
     @Test
+    public void addMiddleElement(){
+        Library library = new Library(50, "Dune", "Gerbert");
+        libList.add(50, library);
+        Library libFromList = libList.get(50);
+        assertEquals("Dune", libFromList.getName());
+    }
+
+    @Test
+    public void addFirstElement(){
+        Library library = new Library(0, "WarCraft", "Blizzard");
+        libList.add(0, library);
+        Library libFromList = libList.get(0);
+        assertEquals("WarCraft", libFromList.getName());
+    }
+
+    @Test
+    public void addLastElement(){
+        Library library = new Library(100, "Warhammer", "GamesWorkshop");
+        libList.add(100, library);
+        Library libFromList = libList.get(100);
+        assertEquals("Warhammer", libFromList.getName());
+    }
+
+    @Test
     public void RemoveReturnFalse(){
         Library library = new Library(4, "Lord of the Rings", "Tolkien");
         assertFalse(libList.remove(library));
@@ -52,9 +76,7 @@ class LibraryListTest {
 
     @Test
     public void whenIndexOutOfBoundsThenThrownException(){
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            libList.get(100);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> libList.get(100));
     }
 
     @Test
