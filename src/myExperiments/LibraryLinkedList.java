@@ -13,7 +13,7 @@ public class LibraryLinkedList implements LibraryList {
 
     @Override
     public void add(Library library) {
-        if(first == null){
+        if(size == 0){
             first = new Node(null, library, null);
             last = first;
         } else {
