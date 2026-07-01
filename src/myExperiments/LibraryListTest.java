@@ -11,7 +11,7 @@ class LibraryListTest {
 
     @BeforeEach
     public void setUp() {
-        libList = new LibraryLinkedList();
+        libList = new LibraryArrayList();
         for (int i = 0; i < 100; i++) {
             libList.add(new Library(i, "Book " + i, "Author" + i));
         }

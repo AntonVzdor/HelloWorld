@@ -32,13 +32,3 @@ public class Library{
         return Objects.hash(id, name, author);
     }
 }
-
-interface LibraryList{
-    Library get(int index);
-    void add(Library library);
-    void add(int index, Library library);
-    boolean remove(Library library);
-    boolean removeAt(int index);
-    int size();
-    void clear();
-}

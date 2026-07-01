@@ -14,14 +14,15 @@ public class LibraryArrayList implements LibraryList {
     }
 
     @Override
-    public void add(Library library) {
+    public boolean add(Library library) {
         checkSize();
         libAryArrayList[size] = library;
         size++;
+        return true;
     }
 
     @Override
-    public void add(int index, Library library) {
+    public boolean add(int index, Library library) {
         checkSize();
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
@@ -29,6 +30,7 @@ public class LibraryArrayList implements LibraryList {
         System.arraycopy(libAryArrayList, index, libAryArrayList, index + 1, size - index);
         libAryArrayList[index] = library;
         size++;
+        return true;
     }
 
     @Override

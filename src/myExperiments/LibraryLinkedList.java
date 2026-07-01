@@ -12,7 +12,7 @@ public class LibraryLinkedList implements LibraryList {
     }
 
     @Override
-    public void add(Library library) {
+    public boolean add(Library library) {
         if(size == 0){
             first = new Node(null, library, null);
             last = first;
@@ -22,16 +22,16 @@ public class LibraryLinkedList implements LibraryList {
             secondLast.next = last;
         }
         size++;
+        return true;
     }
 
     @Override
-    public void add(int index, Library library) {
+    public boolean add(int index, Library library) {
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
         if(index == size){
-            add(library);
-            return;
+            return add(library);
         }
         Node nodeNext = getNode(index);
         Node nodePrev = nodeNext.previous;
@@ -43,6 +43,7 @@ public class LibraryLinkedList implements LibraryList {
             first = newNode;
         }
         size++;
+        return true;
     }
 
     @Override

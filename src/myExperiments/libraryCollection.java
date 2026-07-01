@@ -1,6 +1,6 @@
 package myExperiments;
 
-public interface LibrarySet extends libraryCollection{
+public interface libraryCollection {
     boolean add(Library library);
     boolean remove(Library library);
     int size();
