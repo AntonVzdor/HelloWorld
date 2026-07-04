@@ -1,6 +1,9 @@
 package myExperiments;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class LibraryArrayList implements LibraryList {
 
@@ -44,6 +47,16 @@ public class LibraryArrayList implements LibraryList {
     }
 
     @Override
+    public boolean contains(Library library) {
+        for (int i = 0; i < size; i++) {
+            if (libAryArrayList[i].equals(library)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean removeAt(int index) {
         checkIndex(index);
         System.arraycopy(libAryArrayList, index + 1, libAryArrayList, index, size- 1 - index);
@@ -62,6 +75,8 @@ public class LibraryArrayList implements LibraryList {
         size = 0;
     }
 
+
+
     private void checkIndex(int index){
         if (index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
@@ -72,5 +87,23 @@ public class LibraryArrayList implements LibraryList {
         if (size >= libAryArrayList.length){
             libAryArrayList = Arrays.copyOf(libAryArrayList , libAryArrayList.length * 2);
         }
+    }
+
+    @Override
+    public Iterator<Library> iterator() {
+        return new Iterator<Library>() {
+
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Library next() {
+                return libAryArrayList[index++];
+            }
+        };
     }
 }

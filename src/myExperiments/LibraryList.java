@@ -1,6 +1,6 @@
 package myExperiments;
 
-public interface LibraryList extends libraryCollection{
+public interface LibraryList extends LibraryCollection{
     Library get(int index);
     boolean add(Library library);
     boolean add(int index, Library library);

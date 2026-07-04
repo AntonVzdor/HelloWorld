@@ -1,5 +1,7 @@
 package myExperiments;
 
+import java.util.Iterator;
+
 public class LibraryHashSet implements LibrarySet {
 
     private static final int INITIAL_CAPACITY = 16;
@@ -67,6 +69,27 @@ public class LibraryHashSet implements LibrarySet {
     }
 
     @Override
+    public boolean contains(Library library) {
+        int position = getElementPosition(library, array.length);
+        if (array[position] == null) {
+            return false;
+        }
+        Entry secondLast = array[position];
+        Entry lastEntry = secondLast.next;
+        if (secondLast.value.equals(library)) {
+            return true;
+        }
+        while (lastEntry != null) {
+            if (lastEntry.value.equals(library)) {
+                return true;
+            } else {
+                lastEntry = lastEntry.next;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public int size() {
         return size;
     }
@@ -76,6 +99,8 @@ public class LibraryHashSet implements LibrarySet {
         array = new Entry[INITIAL_CAPACITY];
         size = 0;
     }
+
+
 
     private void increaseArray(){
         Entry[] newArray = new Entry[array.length * 2];
@@ -91,6 +116,38 @@ public class LibraryHashSet implements LibrarySet {
 
     private int getElementPosition(Library library, int arrayLength) {
     return Math.abs(library.hashCode() % arrayLength);
+    }
+
+    @Override
+    public Iterator<Library> iterator() {
+        return new  Iterator<Library>() {
+
+            int index = 0;
+            int arrayIndex = 0;
+            Entry entry;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Library next() {
+                while(array[arrayIndex] == null) {
+                    arrayIndex++;
+                }
+                if (entry == null) {
+                    entry = array[arrayIndex];
+                }
+                Library result = entry.value;
+                entry = entry.next;
+                if (entry == null) {
+                    arrayIndex++;
+                }
+                index++;
+                return result;
+            }
+        };
     }
 
     private static class Entry{

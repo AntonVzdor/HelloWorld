@@ -1,5 +1,7 @@
 package myExperiments;
 
+import java.util.Iterator;
+
 public class LibraryLinkedList implements LibraryList {
 
     private Node first;
@@ -48,14 +50,27 @@ public class LibraryLinkedList implements LibraryList {
 
     @Override
     public boolean remove(Library library) {
+        int index = findIndex(library);
+        if(index != -1){
+            return removeAt(index);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(Library library) {
+        return findIndex(library) != -1;
+    }
+
+    private int findIndex(Library library){
         Node node = first;
         for (int i = 0; i < size; i++) {
             if (node.value.equals(library)) {
-                return removeAt(i);
+                return i;
             }
             node =node.next;
         }
-        return false;
+        return -1;
     }
 
     @Override
@@ -87,6 +102,26 @@ public class LibraryLinkedList implements LibraryList {
         first = null;
         last = null;
         size = 0;
+    }
+
+    @Override
+    public Iterator<Library> iterator() {
+        return new Iterator<Library>() {
+
+           private Node node = first;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public Library next() {
+                Library library = node.value;
+                node = node.next;
+                return library;
+            }
+        };
     }
 
     private Node getNode(int index){
