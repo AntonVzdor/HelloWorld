@@ -1,23 +1,31 @@
 package myExperiments;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
-public class Library{
+public class Library {
     private final int id;
     private final String name;
     private final String author;
 
-    public Library(int id, String name, String author){
+    public Library(int id, String name, String author) {
         this.id = id;
         this.name = name;
         this.author = author;
     }
 
-    public int getId(){return id;}
+    public int getId() {
+        return id;
+    }
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
 
-    public String getAuthor(){return author;}
+    public String getAuthor() {
+        return author;
+    }
 
 
     @Override
@@ -30,5 +38,14 @@ public class Library{
     @Override
     public int hashCode() {
         return Objects.hash(id, name, author);
+    }
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                '}';
     }
 }
