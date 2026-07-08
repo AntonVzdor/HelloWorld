@@ -1,37 +1,37 @@
 package myExperiments;
 
+import java.util.ArrayList;
+
 public class Library {
-    private String name;
-    private String author;
-    private int numberOfBooks;
+    private final ArrayList<Book> books = new ArrayList<>();;
 
-    public  Library(
-            String name,
-            String author,
-            int numberOfBooks
-    ) {
-        this.name = name;
-        this.author = author;
-        this.numberOfBooks = numberOfBooks;
+    public void addNewBooks(Book book){
+        books.add(book);
     }
 
-    public String getName() {
-        return name;
+    public void removeBook(int index){
+        findToIndex(index);
+        books.remove(index);
     }
 
-    public String getAuthor() {
-        return author;
+    public Book getBookByIndex(int index){
+        findToIndex(index);
+        return books.get(index);
     }
-    public int getNumberOfBooks() {
-        return numberOfBooks;
-    }
-}
 
-interface Book {
-    Library get(int numberOfBooks);
-    void add(Library library);
-    boolean remove(Library library);
-    boolean removeAt(int index);
-    int size();
-    void  clear();
+    public ArrayList<Book> getAllBooks(){
+        return books;
+    }
+
+    public int size(){
+        return books.size();
+    }
+
+    private void findToIndex(int index){
+        if(index < 0 || index >= books.size()){
+            throw new IndexOutOfBoundsException(
+                    "Индекс " + index + " вне диапазона [0, " + (books.size() - 1) + "]"
+            );
+        }
+    }
 }
