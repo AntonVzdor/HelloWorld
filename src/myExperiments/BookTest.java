@@ -10,7 +10,7 @@ public class BookTest {
     Book book;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         book = new Book(1,"Дюна","Фрэнк Герберт",1965, "научная-фантастика", false);
     }
 
