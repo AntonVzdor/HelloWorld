@@ -2,7 +2,7 @@ package myExperiments;
 
 import java.util.Iterator;
 
-public class LibraryLinkedList implements LibraryList {
+public class LibraryLinkedList implements LibraryList, LibraryQueue {
 
     private Node first;
     private Node last;
@@ -25,6 +25,18 @@ public class LibraryLinkedList implements LibraryList {
         }
         size++;
         return true;
+    }
+
+    @Override
+    public Library peek() {
+        return size > 0 ? get(0) : null;
+    }
+
+    @Override
+    public Library pool() {
+        Library library = get(0);
+        removeAt(0);
+        return library;
     }
 
     @Override
