@@ -13,7 +13,7 @@ public class LibraryTest {
     public void setUp() {
         library = new Library();
         for (int i = 0; i < 15; i++) {
-            library.addNewBooks(new Book(i, "title" + i, "author" + i,200 + i, "genre" + i, false));
+            library.addNewBooks(new Book(4+ i, "title" + i, "author" + i,200 + i, "genre" + i, true));
         }
     }
 
@@ -24,29 +24,29 @@ public class LibraryTest {
 
     @Test
     public void testAddNewBooks() {
-        library.addNewBooks(new Book(16, "title16", "author16", 20016, "genre16", false));
+        library.addNewBooks(new Book(16, "title16", "author16", 20016, "genre16", true));
         assertEquals(16, library.size());
     }
 
     @Test
     public void testRemoveBook() {
-        assertEquals("Book{id=1, title='title1', author='author1', year=201, genre='genre1', available=false}",
-                library.getBookById(1).toString());
-        library.removeBook(1);
-        assertThrows(IllegalArgumentException.class, () -> library.getBookById(1));
+        assertEquals("Book{id=5, title='title1', author='author1', year=201, genre='genre1', available=true}",
+                library.getBookById(5).toString());
+        library.removeBook(5);
+        assertThrows(IllegalArgumentException.class, () -> library.getBookById(5));
         assertEquals(14, library.size());
     }
 
     @Test
     public void changeBookStatus(){
-        Book book = library.getBookById(1);
-        book.setAvailable(true);
-        assertTrue(book.isAvailable());
+        Book book = library.getBookById(5);
+        book.setAvailable(false);
+        assertFalse(book.isAvailable());
     }
 
     @Test
     public void testGetBookById() {
-        assertEquals("Book{id=5, title='title5', author='author5', year=205, genre='genre5', available=false}",
+        assertEquals("Book{id=5, title='title1', author='author1', year=201, genre='genre1', available=true}",
                 library.getBookById(5).toString());
     }
 
@@ -57,9 +57,46 @@ public class LibraryTest {
 
     @Test
     public void findBookWithWrongId(){
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> library.getBookById(100)
+        assertThrows(IllegalArgumentException.class, () -> library.getBookById(100)
         );
+    }
+
+    @Test
+    public void testTakeBookById(){
+        library.takeBook(5);
+        assertFalse(library.getBookById(5).isAvailable());
+    }
+
+    @Test
+    public void testDoubleTakeBookById(){
+        library.takeBook(5);
+        assertFalse(library.getBookById(5).isAvailable());
+        assertThrows(IllegalArgumentException.class, () -> library.takeBook(5));
+    }
+
+    @Test
+    public void testReturnBookById(){
+        library.takeBook(5);
+        assertFalse(library.getBookById(5).isAvailable());
+        library.returnBook(5);
+        assertTrue(library.getBookById(5).isAvailable());
+    }
+
+    @Test
+    public void testDoubleReturnBookById(){
+        library.takeBook(5);
+        assertFalse(library.getBookById(5).isAvailable());
+        library.returnBook(5);
+        assertTrue(library.getBookById(5).isAvailable());
+        assertThrows(IllegalArgumentException.class, () -> library.returnBook(5));
+    }
+
+    @Test
+    public void testIsBookAvailable(){
+        assertTrue(library.isBookAvailable(5));
+        library.takeBook(5);
+        assertFalse(library.isBookAvailable(5));
+        library.returnBook(5);
+        assertTrue(library.isBookAvailable(5));
     }
 }

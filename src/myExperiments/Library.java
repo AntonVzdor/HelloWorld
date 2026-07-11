@@ -10,11 +10,11 @@ public class Library {
     }
 
     public void removeBook(int id){
-        books.remove(check(id));
+        books.remove(requireBookIndex(id));
     }
 
     public Book getBookById(int id){
-        return books.get(check(id));
+        return books.get(requireBookIndex(id));
     }
 
     public ArrayList<Book> getAllBooks(){
@@ -23,6 +23,27 @@ public class Library {
 
     public int size(){
         return books.size();
+    }
+
+    public void takeBook(int id){
+        int index = requireBookIndex(id);
+        if(!isBookAvailable(id)){
+            throw new IllegalArgumentException("Book is not available");
+        }
+        books.get(index).setAvailable(false);
+    }
+
+    public void returnBook(int id){
+        int index = requireBookIndex(id);
+        if(!isBookAvailable(id)){
+            books.get(index).setAvailable(true);
+        } else {
+            throw new IllegalArgumentException("The book is not issued.");
+        }
+    }
+
+    public boolean isBookAvailable(int id){
+        return books.get(requireBookIndex(id)).isAvailable();
     }
 
     private int findIndexById(int id) {
@@ -34,7 +55,7 @@ public class Library {
         return -1;
     }
 
-    private int check(int id){
+    private int requireBookIndex(int id){
         int index = findIndexById(id);
         if (index == -1){
             throw new IllegalArgumentException("Книга с id " + id + " не найдена");
