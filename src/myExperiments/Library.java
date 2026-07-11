@@ -1,6 +1,7 @@
 package myExperiments;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Library {
     private final ArrayList<Book> books = new ArrayList<>();
@@ -42,6 +43,24 @@ public class Library {
         }
     }
 
+    public ArrayList<Book> getReturnBooksByAuthor(String author){
+        return searchByStringRequest(book -> book.getAuthor().equals(author));
+    }
+
+    public ArrayList<Book> getReturnBooksByGenres(String genres){
+        return searchByStringRequest(book -> book.getGenre().equals(genres));
+    }
+
+    public ArrayList<Book> returnBookAvailable(boolean available){
+        ArrayList<Book> returnBooks = new ArrayList<>();
+        for(Book book: books){
+            if(book.isAvailable() == available){
+                returnBooks.add(book);
+            }
+        }
+        return returnBooks;
+    }
+
     public boolean isBookAvailable(int id){
         return books.get(requireBookIndex(id)).isAvailable();
     }
@@ -61,5 +80,16 @@ public class Library {
             throw new IllegalArgumentException("Книга с id " + id + " не найдена");
         }
         return index;
+    }
+
+    private ArrayList<Book> searchByStringRequest(Predicate<Book> predicate){
+        ArrayList<Book> returnBooks = new ArrayList<>();
+
+        for (Book book : books) {
+            if (predicate.test(book)) {
+                    returnBooks.add(book);
+            }
+        }
+        return returnBooks;
     }
 }
