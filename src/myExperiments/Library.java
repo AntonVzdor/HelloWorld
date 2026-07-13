@@ -1,9 +1,14 @@
 package myExperiments;
 
-import java.util.ArrayList;
-import java.util.function.Predicate;
+import org.jetbrains.annotations.NotNull;
 
-public class Library {
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class Library{
     private final ArrayList<Book> books = new ArrayList<>();
 
     public void addNewBooks(Book book){
@@ -43,6 +48,7 @@ public class Library {
         }
     }
 
+    //поиск по...
     public ArrayList<Book> getReturnBooksByAuthor(String author){
         return searchByStringRequest(book -> book.getAuthor().equals(author));
     }
@@ -60,9 +66,35 @@ public class Library {
         }
         return returnBooks;
     }
+    //конец
 
     public boolean isBookAvailable(int id){
         return books.get(requireBookIndex(id)).isAvailable();
+    }
+
+    //сортировка
+    public static final Comparator<Book> BY_TITLE =
+            Comparator.comparing(Book::getTitle);
+
+    public static final Comparator<Book> BY_AUTHOR =
+            Comparator.comparing(Book::getAuthor);
+
+    public static final Comparator<Book> BY_YEAR =
+            Comparator.comparing(Book::getYear);
+
+    public static final Comparator<Book> BY_ID =
+            Comparator.comparing(Book::getId);
+
+    public static final Comparator<Book> BY_GENRE =
+            Comparator.comparing(Book::getGenre);
+
+    public static final Comparator<Book> BY_AVAILABLE =
+            Comparator.comparing(Book::isAvailable);
+
+    public ArrayList<Book> getSortedBooks(List<Book> books, Comparator<Book> comparator){
+        return books.stream()
+                .sorted(comparator)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private int findIndexById(int id) {
@@ -73,6 +105,7 @@ public class Library {
         }
         return -1;
     }
+    //конец сортировки
 
     private int requireBookIndex(int id){
         int index = findIndexById(id);
@@ -82,9 +115,9 @@ public class Library {
         return index;
     }
 
+    @NotNull
     private ArrayList<Book> searchByStringRequest(Predicate<Book> predicate){
         ArrayList<Book> returnBooks = new ArrayList<>();
-
         for (Book book : books) {
             if (predicate.test(book)) {
                     returnBooks.add(book);

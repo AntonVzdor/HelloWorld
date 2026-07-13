@@ -178,4 +178,88 @@ public class LibraryTest {
         }
         assertEquals(25, availableBook.size());
     }
+
+    @Test
+    public void testSortBooksByTitle(){
+        ArrayList<Book> allBooks = library.getAllBooks();
+        ArrayList<Book> sortedByTitle = library.getSortedBooks(allBooks, Library.BY_TITLE);
+
+        assertEquals(27, sortedByTitle.size());
+        assertEquals("1984", sortedByTitle.get(0).getTitle());
+        assertEquals("451 градус по Фаренгейту", sortedByTitle.get(1).getTitle());
+        assertEquals("Алиса в Стране чудес", sortedByTitle.get(2).getTitle());
+        assertEquals("Шерлок Холмс: Этюд в багровых тонах", sortedByTitle.get(26).getTitle());
+
+        assertEquals("Преступление и наказание", allBooks.getFirst().getTitle());
+    }
+
+    @Test
+    public void testSortBooksByAuthor(){
+        ArrayList<Book> allBooks = library.getAllBooks();
+        ArrayList<Book> sortedByAuthor = library.getSortedBooks(allBooks, Library.BY_AUTHOR);
+
+        assertEquals(27, sortedByAuthor.size());
+        assertEquals("Артур Конан Дойл", sortedByAuthor.get(0).getAuthor());
+        assertEquals("Герман Мелвилл", sortedByAuthor.get(1).getAuthor());
+        assertEquals("Дж. Р. Р. Толкин", sortedByAuthor.get(2).getAuthor());
+        assertEquals("Эрих Мария Ремарк", sortedByAuthor.get(26).getAuthor());
+
+        assertEquals("Фёдор Достоевский", allBooks.getFirst().getAuthor());
+    }
+
+    @Test
+    public void testSortBooksByYear(){
+        ArrayList<Book> allBooks = library.getAllBooks();
+        ArrayList<Book> sortedByYear = library.getSortedBooks(allBooks, Library.BY_YEAR);
+
+        assertEquals(27, sortedByYear.size());
+        assertEquals(1603, sortedByYear.get(0).getYear());
+        assertEquals(1813, sortedByYear.get(1).getYear());
+        assertEquals(1851, sortedByYear.get(2).getYear());
+        assertEquals(2007, sortedByYear.get(26).getYear());
+
+        assertEquals(1866, allBooks.getFirst().getYear());
+    }
+
+    @Test
+    public void testSortBooksById(){
+        ArrayList<Book> allBooks = library.getAllBooks();
+        ArrayList<Book> sortedById = library.getSortedBooks(allBooks, Library.BY_ID);
+
+        assertEquals(27, sortedById.size());
+        assertEquals(154, sortedById.get(0).getId());
+        assertEquals(172, sortedById.get(1).getId());
+        assertEquals(208, sortedById.get(2).getId());
+        assertEquals(971, sortedById.get(26).getId());
+
+        assertEquals(847, allBooks.getFirst().getId());
+    }
+
+    @Test
+    public void testSortBooksByGenre(){
+        ArrayList<Book> allBooks = library.getAllBooks();
+        ArrayList<Book> sortedByGenre = library.getSortedBooks(allBooks, Library.BY_GENRE);
+
+        assertEquals(27, sortedByGenre.size());
+        assertEquals("Антиутопия", sortedByGenre.get(0).getGenre());
+        assertEquals("Антиутопия", sortedByGenre.get(1).getGenre());
+        assertEquals("Детектив", sortedByGenre.get(2).getGenre());
+        assertEquals("Хоррор", sortedByGenre.get(26).getGenre());
+
+        assertEquals("Роман", allBooks.getFirst().getGenre());
+    }
+
+    @Test
+    public void testSortBooksByAvailability(){
+        ArrayList<Book> allBooks = library.getAllBooks();
+        ArrayList<Book> sortedByAvailability = library.getSortedBooks(allBooks, Library.BY_AVAILABLE);
+
+        assertEquals(27, sortedByAvailability.size());
+        assertFalse(sortedByAvailability.get(0).isAvailable());
+        assertFalse(sortedByAvailability.get(1).isAvailable());
+        assertTrue(sortedByAvailability.get(2).isAvailable());
+        assertTrue(sortedByAvailability.get(26).isAvailable());
+
+        assertTrue(allBooks.getFirst().isAvailable());
+    }
 }
