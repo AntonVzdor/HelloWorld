@@ -6,11 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class LibraryMapTest {
-    private LibraryMap libraryMap;
+    private LibraryMap<BookOwner, Library> libraryMap;
 
     @Before
     public void setUp() {
-        libraryMap = new LibraryHashMap();
+        libraryMap = new LibraryHashMap<>();
     }
 
     @Test

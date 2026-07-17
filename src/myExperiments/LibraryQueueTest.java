@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 
 public class LibraryQueueTest {
 
-    private LibraryQueue queue;
+    private LibraryQueue<Library> queue;
 
     @Before
     public void setUp() throws Exception {
-        queue = new LibraryLinkedList();
+        queue = new LibraryLinkedList<>();
         for (int i = 0; i < 10; i++) {
             queue.add(new Library(i, "Book" + i, "Author" + i));
         }

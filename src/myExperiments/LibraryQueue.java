@@ -1,9 +1,9 @@
 package myExperiments;
 
-public interface LibraryQueue extends LibraryCollection{
-    boolean add(Library library);
+public interface LibraryQueue<T> extends LibraryCollection<T>{
+    boolean add(T library);
 
-    Library peek();
+    T peek();
 
-    Library pool();
+    T pool();
 }

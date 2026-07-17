@@ -1,9 +1,9 @@
 package myExperiments;
 
-public interface LibraryCollection extends Iterable<Library> {
-    boolean add(Library library);
-    boolean remove(Library library);
+public interface LibraryCollection<T> extends Iterable<T> {
+    boolean add(T library);
+    boolean remove(T library);
     int size();
     void clear();
-    boolean contains(Library library);
+    boolean contains(T library);
 }

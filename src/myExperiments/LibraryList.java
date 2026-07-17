@@ -1,10 +1,10 @@
 package myExperiments;
 
-public interface LibraryList extends LibraryCollection{
-    Library get(int index);
-    boolean add(Library library);
-    boolean add(int index, Library library);
-    boolean remove(Library library);
+public interface LibraryList<T> extends LibraryCollection<T>{
+    T get(int index);
+    boolean add(T library);
+    boolean add(int index, T library);
+    boolean remove(T library);
     boolean removeAt(int index);
     int size();
     void clear();

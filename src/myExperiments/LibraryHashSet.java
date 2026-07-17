@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class LibraryHashSet implements LibrarySet {
+public class LibraryHashSet<T> implements LibrarySet<T> {
 
-    private Map<Library, Object> map = new HashMap<>();
+    private Map<T, Object> map = new HashMap<>();
     private Object object = new Object();;
 
     @Override
-    public boolean add(Library library) {
+    public boolean add(T library) {
         if(map.containsKey(library)) {
             return false;
         }
@@ -19,13 +19,13 @@ public class LibraryHashSet implements LibrarySet {
     }
 
     @Override
-    public boolean remove(Library library) {
+    public boolean remove(T library) {
         Object removed = map.remove(library);
         return removed != null;
     }
 
     @Override
-    public boolean contains(Library library) {
+    public boolean contains(T library) {
         return map.containsKey(library);
     }
 
@@ -40,7 +40,7 @@ public class LibraryHashSet implements LibrarySet {
     }
 
     @Override
-    public Iterator<Library> iterator() {
+    public Iterator<T> iterator() {
         return map.keySet().iterator();
     }
 }

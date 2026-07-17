@@ -5,19 +5,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class LibraryArrayList implements LibraryList {
+public class LibraryArrayList<T> implements LibraryList<T> {
 
-    private Library[] libAryArrayList = new Library[10];
+    private Object[] libAryArrayList = new Object[10];
     private int size = 0;
 
     @Override
-    public Library get(int index) {
+    public T get(int index) {
         checkIndex(index);
-        return libAryArrayList[index];
+        return (T)libAryArrayList[index];
     }
 
     @Override
-    public boolean add(Library library) {
+    public boolean add(T library) {
         checkSize();
         libAryArrayList[size] = library;
         size++;
@@ -25,7 +25,7 @@ public class LibraryArrayList implements LibraryList {
     }
 
     @Override
-    public boolean add(int index, Library library) {
+    public boolean add(int index, T library) {
         checkSize();
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
@@ -37,7 +37,7 @@ public class LibraryArrayList implements LibraryList {
     }
 
     @Override
-    public boolean remove(Library library) {
+    public boolean remove(T library) {
         for (int i = 0; i < size; i++) {
             if (libAryArrayList[i].equals(library)){
                 return removeAt(i);
@@ -47,7 +47,7 @@ public class LibraryArrayList implements LibraryList {
     }
 
     @Override
-    public boolean contains(Library library) {
+    public boolean contains(T library) {
         for (int i = 0; i < size; i++) {
             if (libAryArrayList[i].equals(library)){
                 return true;
@@ -90,8 +90,8 @@ public class LibraryArrayList implements LibraryList {
     }
 
     @Override
-    public Iterator<Library> iterator() {
-        return new Iterator<Library>() {
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
 
             int index = 0;
 
@@ -101,8 +101,8 @@ public class LibraryArrayList implements LibraryList {
             }
 
             @Override
-            public Library next() {
-                return libAryArrayList[index++];
+            public T next() {
+                return (T)libAryArrayList[index++];
             }
         };
     }

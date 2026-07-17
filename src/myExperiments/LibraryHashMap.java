@@ -2,16 +2,16 @@ package myExperiments;
 
 import java.util.*;
 
-public class LibraryHashMap implements LibraryMap {
+public class LibraryHashMap<T, V> implements LibraryMap<T, V> {
 
     private static final int INITIAL_CAPACITY = 16;
     private static final double LOAD_FACTOR = 0.75;
 
-    private Entry[] array = new Entry[INITIAL_CAPACITY];
+    private Object[] array = new Object[INITIAL_CAPACITY];
     private int size = 0;
 
     @Override
-    public void put(BookOwner key, Library value) {
+    public void put(T key, V value) {
         if(size >= (array.length * LOAD_FACTOR)) {
             increaseArray();
         }
@@ -21,9 +21,9 @@ public class LibraryHashMap implements LibraryMap {
         }
     }
 
-    private boolean put(BookOwner key, Library value, Entry[] dst) {
+    private boolean put(T key, V value, Object[] dst) {
         int position = getElementPosition(key, dst.length);
-        Entry existingEntry = dst[position];
+        Entry existingEntry = (Entry) dst[position];
         if (existingEntry == null) {
             Entry entry = new Entry(key, value, null);
             dst[position] = entry;
@@ -44,9 +44,9 @@ public class LibraryHashMap implements LibraryMap {
     }
 
     @Override
-    public Library get(BookOwner key) {
+    public V get(T key) {  // вместо Library
         int position = getElementPosition(key, array.length);
-        Entry existingEntry = array[position];
+        Entry existingEntry = (Entry)array[position];
         while (existingEntry != null) {
             if (existingEntry.key.equals(key)) {
                 return existingEntry.value;
@@ -57,10 +57,10 @@ public class LibraryHashMap implements LibraryMap {
     }
 
     @Override
-    public Set<BookOwner> keySet() {
-        Set<BookOwner> result = new HashSet<>();
-        for(Entry entry: array){
-            Entry existingEntry = entry;
+    public Set<T> keySet() {
+        Set<T> result = new HashSet<>();
+        for(Object entry: array){
+            Entry existingEntry = (Entry)entry;
             while (existingEntry != null) {
                 result.add(existingEntry.key);
                 existingEntry = existingEntry.next;
@@ -70,10 +70,10 @@ public class LibraryHashMap implements LibraryMap {
     }
 
     @Override
-    public List<Library> values() {
-        List<Library> result = new ArrayList<>();
-        for(Entry entry: array){
-            Entry existingEntry = entry;
+    public List<V> values() {
+        List<V> result = new ArrayList<>();
+        for(Object entry: array){
+            Entry existingEntry = (Entry)entry;
             while (existingEntry != null) {
                 result.add(existingEntry.value);
                 existingEntry = existingEntry.next;
@@ -83,9 +83,9 @@ public class LibraryHashMap implements LibraryMap {
     }
 
     @Override
-    public boolean remove(BookOwner key) {
+    public boolean remove(T key) {
         int position = getElementPosition(key, array.length);
-        Entry existingEntry = array[position];
+        Entry existingEntry = (Entry)array[position];
         if (existingEntry != null && existingEntry.key.equals(key)) {
             array[position] = existingEntry.next;
             size--;
@@ -114,18 +114,18 @@ public class LibraryHashMap implements LibraryMap {
 
     @Override
     public void clear() {
-        array =  new Entry[INITIAL_CAPACITY];
+        array =  new Object[INITIAL_CAPACITY];
         size = 0;
     }
 
-    private int getElementPosition(BookOwner bookOwner, int arrayLength) {
+    private int getElementPosition(T bookOwner, int arrayLength) {
         return Math.abs(bookOwner.hashCode() % arrayLength);
     }
 
     private void increaseArray() {
-        Entry[] newArray =   new Entry[array.length * 2];
-        for(Entry entry: array){
-            Entry existingEntry = entry;
+        Object[] newArray =   new Object[array.length * 2];
+        for(Object entry: array){
+            Entry existingEntry = (Entry)entry;
             while (existingEntry != null) {
                 put(existingEntry.key, existingEntry.value, newArray);
                 existingEntry = existingEntry.next;
@@ -134,12 +134,12 @@ public class LibraryHashMap implements LibraryMap {
         array = newArray;
     }
 
-    private static class Entry{
-        private BookOwner key;
-        private Library value;
+    private class Entry{
+        private T key;
+        private V value;
         private Entry next;
 
-        public Entry(BookOwner key, Library value, Entry next) {
+        public Entry(T key, V value, Entry next) {
             this.key = key;
             this.value = value;
             this.next = next;

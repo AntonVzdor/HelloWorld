@@ -2,19 +2,19 @@ package myExperiments;
 
 import java.util.Iterator;
 
-public class LibraryLinkedList implements LibraryList, LibraryQueue {
+public class LibraryLinkedList<T> implements LibraryList<T>, LibraryQueue<T> {
 
     private Node first;
     private Node last;
     private int size;
 
     @Override
-    public Library get(int index) {
+    public T get(int index) {
         return getNode(index).value;
     }
 
     @Override
-    public boolean add(Library library) {
+    public boolean add(T library) {
         if(size == 0){
             first = new Node(null, library, null);
             last = first;
@@ -28,19 +28,19 @@ public class LibraryLinkedList implements LibraryList, LibraryQueue {
     }
 
     @Override
-    public Library peek() {
+    public T peek() {
         return size > 0 ? get(0) : null;
     }
 
     @Override
-    public Library pool() {
-        Library library = get(0);
+    public T pool() {
+        T library = get(0);
         removeAt(0);
-        return library;
+        return (T)library;
     }
 
     @Override
-    public boolean add(int index, Library library) {
+    public boolean add(int index, T library) {
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
@@ -61,7 +61,7 @@ public class LibraryLinkedList implements LibraryList, LibraryQueue {
     }
 
     @Override
-    public boolean remove(Library library) {
+    public boolean remove(T library) {
         int index = findIndex(library);
         if(index != -1){
             return removeAt(index);
@@ -70,11 +70,11 @@ public class LibraryLinkedList implements LibraryList, LibraryQueue {
     }
 
     @Override
-    public boolean contains(Library library) {
+    public boolean contains(T library) {
         return findIndex(library) != -1;
     }
 
-    private int findIndex(Library library){
+    private int findIndex(Object library){
         Node node = first;
         for (int i = 0; i < size; i++) {
             if (node.value.equals(library)) {
@@ -117,8 +117,8 @@ public class LibraryLinkedList implements LibraryList, LibraryQueue {
     }
 
     @Override
-    public Iterator<Library> iterator() {
-        return new Iterator<Library>() {
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
 
            private Node node = first;
 
@@ -128,8 +128,8 @@ public class LibraryLinkedList implements LibraryList, LibraryQueue {
             }
 
             @Override
-            public Library next() {
-                Library library = node.value;
+            public T next() {
+                T library = node.value;
                 node = node.next;
                 return library;
             }
@@ -147,12 +147,12 @@ public class LibraryLinkedList implements LibraryList, LibraryQueue {
         return node;
     }
 
-    private static class Node{
+    private class Node{
         private Node previous;
-        private final Library value;
+        private final T value;
         private Node next;
 
-        public Node(Node previous, Library value, Node next) {
+        public Node(Node previous, T value, Node next) {
             this.previous = previous;
             this.value = value;
             this.next = next;

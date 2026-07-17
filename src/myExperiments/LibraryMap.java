@@ -3,16 +3,16 @@ package myExperiments;
 import java.util.List;
 import java.util.Set;
 
-public interface LibraryMap {
-    void put(BookOwner key, Library value);
+public interface LibraryMap<T,V>{
+    void put(T key, V value);
 
-    Library get(BookOwner key);
+    V get(T key);
 
-    Set<BookOwner> keySet();
+    Set<T> keySet();
 
-    List<Library> values();
+    List<V> values();
 
-    boolean remove(BookOwner key);
+    boolean remove(T key);
 
     int size();
 

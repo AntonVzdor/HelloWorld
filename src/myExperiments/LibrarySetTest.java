@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 
 public class LibrarySetTest {
 
-    private  LibrarySet libSet;
+    private  LibrarySet<Library> libSet;
 
    @Before
     public void setUp() {
-        libSet = new LibraryHashSet();
+        libSet = new LibraryHashSet<>();
         for (int i = 0; i < 100; i++) {
             libSet.add(new Library(i, "Book " + i, "Author " + i));
         }

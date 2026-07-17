@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryListTest {
 
-    private LibraryList libList;
+    private LibraryList<Library> libList;
 
     @BeforeEach
     public void setUp() {
-        libList = new LibraryArrayList();
+        libList = new LibraryArrayList<>();
         for (int i = 0; i < 100; i++) {
             libList.add(new Library(i, "Book " + i, "Author" + i));
         }
