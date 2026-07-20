@@ -31,6 +31,15 @@ public class Box<T extends Number & Comparable<T> & Serializable> {
 
     }
 
+    public static <U> U getFirstElement(List<U> list){
+        return list.get(0);
+    }
+
+    public static <U>  void transfer(List<? extends U> list1, List<? super U> list2){
+        list2.addAll(list1);
+        list1.clear();
+    }
+
     public int compare(Box<?> another) {
         if (avg() > another.avg()) {
             return 1;
