@@ -1,37 +1,47 @@
 package Generics;
 
-public class Box <S, I, F>{
-    private S str;
-    private I integer;
-    private F floating;
+import java.io.Serializable;
+import java.util.List;
 
-    public Box(S str, I integer, F floating) {
-        this.str = str;
-        this.integer = integer;
-        this.floating = floating;
+public class Box<T extends Number & Comparable<T> & Serializable> {
+
+    private T[] array;
+
+    public Box(T... array) {
+        this.array = array;
     }
 
-    public S getStr() {
-        return str;
+    public T[] getArray() {
+        return array;
     }
 
-    public void setStr(S str) {
-        this.str = str;
+    public double avg() {
+        double result = 0;
+        for (T element : array) {
+            result += ((Number) element).doubleValue();
+        }
+        return result / array.length;
     }
 
-    public I getInteger() {
-        return integer;
+// public static void method(List<Number> numbers) {
+//
+// }
+
+    public static void method(List<? extends Number> numbers) {
+
     }
 
-    public void setInteger(I integer) {
-        this.integer = integer;
+    public int compare(Box<?> another) {
+        if (avg() > another.avg()) {
+            return 1;
+        } else if (avg() == another.avg()) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 
-    public F getFloating() {
-        return floating;
-    }
-
-    public void setFloating(F floating) {
-        this.floating = floating;
+    public void setArray(T[] array) {
+        this.array = array;
     }
 }
