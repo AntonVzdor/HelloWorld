@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -261,5 +262,13 @@ public class LibraryTest {
         assertTrue(sortedByAvailability.get(26).isAvailable());
 
         assertTrue(allBooks.getFirst().isAvailable());
+    }
+
+    @Test
+    private void countBookTest(){
+        ArrayList<Book> allBooks = library.getAllBooks();
+        Map<String, Integer> result = library.countBook(allBooks);
+
+        assertEquals(3, result.get("Фёдор Достоевский"));
     }
 }

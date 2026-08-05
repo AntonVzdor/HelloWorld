@@ -2,9 +2,7 @@ package myExperiments;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -106,6 +104,17 @@ public class Library{
         return -1;
     }
     //конец сортировки
+
+    //система подсчета
+    public Map<String, Integer> countBook(List<Book> list){
+        Map<String, Integer> authorCount = new HashMap<>();
+        for(Book book: list){
+            String author = book.getAuthor();
+                authorCount.put(author, authorCount.getOrDefault(author, 0) + 1);
+        }
+        return authorCount;
+    }
+    //конец подсчета
 
     private int requireBookIndex(int id){
         int index = findIndexById(id);
